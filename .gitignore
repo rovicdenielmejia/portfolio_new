@@ -17,5 +17,13 @@ desktop.ini
 *.log
 npm-debug.log*
 
+# Next.js
+.next/
+out/
+build/
+
 # Optional: uncomment to ignore source assets
 # *.psd
+
+# Prisma
+prisma/migrations/
