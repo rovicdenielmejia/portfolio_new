@@ -1,14 +1,22 @@
 import { NextRequest, NextResponse } from 'next/server'
 import ImageKit from 'imagekit'
 
-const imagekit = new ImageKit({
-  publicKey: process.env.IMAGEKIT_PUBLIC_KEY as string,
-  privateKey: process.env.IMAGEKIT_PRIVATE_KEY as string,
-  urlEndpoint: process.env.IMAGEKIT_URL_ENDPOINT as string
-})
-
 export async function POST(request: NextRequest) {
   try {
+    const publicKey = process.env.IMAGEKIT_PUBLIC_KEY
+    const privateKey = process.env.IMAGEKIT_PRIVATE_KEY
+    const urlEndpoint = process.env.IMAGEKIT_URL_ENDPOINT
+
+    if (!publicKey || !privateKey || !urlEndpoint) {
+      return NextResponse.json({ error: 'ImageKit not configured' }, { status: 500 })
+    }
+
+    const imagekit = new ImageKit({
+      publicKey,
+      privateKey,
+      urlEndpoint
+    })
+
     const formData = await request.formData()
     const file = formData.get('file') as File
 

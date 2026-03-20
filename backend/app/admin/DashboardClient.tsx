@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import Link from 'next/link'
 import { MessageSquare, Image, FileText, TrendingUp, Eye, Mail } from 'lucide-react'
 
 interface Stats {
@@ -212,9 +213,9 @@ export default function DashboardClient() {
               <Link href="/admin/services" className="btn btn-secondary" style={{ justifyContent: 'flex-start' }}>
                 <TrendingUp size={18} /> Manage Services
               </Link>
-              <Link href="/" target="_blank" className="btn btn-ghost" style={{ justifyContent: 'flex-start' }}>
+              <a href="/" target="_blank" rel="noreferrer" className="btn btn-ghost" style={{ justifyContent: 'flex-start' }}>
                 <Eye size={18} /> View Live Site
-              </Link>
+              </a>
             </div>
           </div>
         </div>
