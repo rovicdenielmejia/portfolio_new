@@ -150,9 +150,9 @@ export default function DashboardClient() {
         <div className="glass-card">
           <div className="glass-card-header">
             <h3 className="glass-card-title">Recent Inquiries</h3>
-            <Link href="/admin/inquiries" className="btn btn-ghost btn-sm">
-              View All
-            </Link>
+              <a href="/admin/inquiries" className="btn btn-ghost btn-sm">
+                View All
+              </a>
           </div>
           <div className="glass-card-body" style={{ padding: 0 }}>
             {recentInquiries.length > 0 ? (
@@ -203,18 +203,18 @@ export default function DashboardClient() {
           </div>
           <div className="glass-card-body">
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-              <Link href="/admin/portfolio/new" className="btn btn-primary" style={{ justifyContent: 'flex-start' }}>
+              <a href="/admin/portfolio/new" className="btn btn-primary" style={{ justifyContent: 'flex-start' }}>
                 <Image size={18} /> Add Portfolio Item
-              </Link>
-              <Link href="/admin/blog/new" className="btn btn-secondary" style={{ justifyContent: 'flex-start' }}>
+              </a>
+              <a href="/admin/blog/new" className="btn btn-secondary" style={{ justifyContent: 'flex-start' }}>
                 <FileText size={18} /> Create Blog Post
-              </Link>
-              <Link href="/admin/services" className="btn btn-secondary" style={{ justifyContent: 'flex-start' }}>
+              </a>
+              <a href="/admin/services" className="btn btn-secondary" style={{ justifyContent: 'flex-start' }}>
                 <TrendingUp size={18} /> Manage Services
-              </Link>
-              <Link href="/" target="_blank" className="btn btn-ghost" style={{ justifyContent: 'flex-start' }}>
+              </a>
+              <a href="/" target="_blank" rel="noreferrer" className="btn btn-ghost" style={{ justifyContent: 'flex-start' }}>
                 <Eye size={18} /> View Live Site
-              </Link>
+              </a>
             </div>
           </div>
         </div>

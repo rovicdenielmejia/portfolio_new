@@ -22,8 +22,7 @@ export async function POST(request: NextRequest) {
     const result = await imagekit.upload({
       file: buffer,
       fileName: file.name,
-      folder: 'portfolio',
-      resourceType: 'auto'
+      folder: 'portfolio'
     })
 
     return NextResponse.json({

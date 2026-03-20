@@ -2,9 +2,9 @@ import { NextRequest, NextResponse } from 'next/server'
 import ImageKit from 'imagekit'
 
 const imagekit = new ImageKit({
-  publicKey: process.env.IMAGEKIT_PUBLIC_KEY,
-  privateKey: process.env.IMAGEKIT_PRIVATE_KEY,
-  urlEndpoint: process.env.IMAGEKIT_URL_ENDPOINT
+  publicKey: process.env.IMAGEKIT_PUBLIC_KEY as string,
+  privateKey: process.env.IMAGEKIT_PRIVATE_KEY as string,
+  urlEndpoint: process.env.IMAGEKIT_URL_ENDPOINT as string
 })
 
 export async function POST(request: NextRequest) {
@@ -22,8 +22,7 @@ export async function POST(request: NextRequest) {
     const result = await imagekit.upload({
       file: buffer,
       fileName: file.name,
-      folder: 'portfolio',
-      resourceType: 'auto'
+      folder: 'portfolio'
     })
 
     return NextResponse.json({
