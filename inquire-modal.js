@@ -58,33 +58,61 @@
       });
     }
 
-    modalForm.addEventListener('submit', function(e) {
+    var submitBtn = modalForm.querySelector('button[type="submit"]');
+    var originalBtnText = submitBtn ? submitBtn.textContent : 'Submit';
+
+    modalForm.addEventListener('submit', async function(e) {
       e.preventDefault();
-      var to, cc;
-      if (inquireToOverride) {
-        to = inquireToOverride;
-        cc = '';
-      } else {
-        to = 'rovicdenielmejia@gmail.com';
-        cc = 'wrs.recruitment.hr@gmail.com,techprintcoreph@gmail.com,rovicmejia.hrd@gmail.com';
-      }
-      var subj = (subjectInput && subjectInput.value) ? subjectInput.value.trim() : 'Inquiry from portfolio';
-      var body = [];
+      
       var nameEl = modalForm.elements.name;
       var emailEl = modalForm.elements.email;
       var phoneEl = modalForm.elements.phone;
       var messageEl = modalForm.elements.message;
-      if (nameEl && nameEl.value) body.push('Name: ' + nameEl.value.trim());
-      if (emailEl && emailEl.value) body.push('Email: ' + emailEl.value.trim());
-      if (phoneEl && phoneEl.value.trim()) body.push('Phone: ' + phoneEl.value.trim());
-      body.push('');
-      if (messageEl && messageEl.value) body.push(messageEl.value.trim());
-      var bodyStr = body.join('\n');
-      if (bodyStr.length > 1200) bodyStr = bodyStr.slice(0, 1200) + '\n\n[... message truncated for email link ...]';
-      var mailto = 'mailto:' + to + (cc ? '?cc=' + encodeURIComponent(cc) + '&' : '?') + 'subject=' + encodeURIComponent(subj) + '&body=' + encodeURIComponent(bodyStr);
-      closeModal();
+      
+      var formData = {
+        name: nameEl ? nameEl.value.trim() : '',
+        email: emailEl ? emailEl.value.trim() : '',
+        phone: phoneEl ? phoneEl.value.trim() : '',
+        message: messageEl ? messageEl.value.trim() : '',
+        service: subjectInput && subjectInput.value ? subjectInput.value.trim() : 'General Inquiry',
+        source: window.location.pathname || 'portfolio'
+      };
+
+      if (!formData.name || !formData.email || !formData.message) {
+        alert('Please fill in all required fields.');
+        return;
+      }
+
+      if (submitBtn) {
+        submitBtn.textContent = 'Sending...';
+        submitBtn.disabled = true;
+      }
+
+      try {
+        var response = await fetch('/api/inquiries', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+
+        if (response.ok) {
+          closeModal();
+          modalForm.reset();
+          alert('Thank you for your inquiry! I will get back to you soon.');
+        } else {
+          var errorData = await response.json();
+          alert('Error: ' + (errorData.error || 'Failed to submit inquiry'));
+        }
+      } catch (error) {
+        console.error('Submission error:', error);
+        alert('Failed to submit. Please try again or email directly.');
+      } finally {
+        if (submitBtn) {
+          submitBtn.textContent = originalBtnText;
+          submitBtn.disabled = false;
+        }
+      }
       inquireToOverride = null;
-      window.location.href = mailto;
     });
   }
 

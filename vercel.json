@@ -26,6 +26,16 @@
     }
   ],
   "rewrites": [
+    { "source": "/api/inquiries/:path*", "destination": "/backend/api/inquiries/:path*" },
+    { "source": "/api/portfolio/:path*", "destination": "/backend/api/portfolio/:path*" },
+    { "source": "/api/services/:path*", "destination": "/backend/api/services/:path*" },
+    { "source": "/api/blog/:path*", "destination": "/backend/api/blog/:path*" },
+    { "source": "/api/settings/:path*", "destination": "/backend/api/settings/:path*" },
+    { "source": "/api/upload/:path*", "destination": "/backend/api/upload/:path*" },
+    { "source": "/api/stats/:path*", "destination": "/backend/api/stats/:path*" },
+    { "source": "/api/admin/:path*", "destination": "/backend/api/admin/:path*" },
+    { "source": "/api/auth/:path*", "destination": "/backend/api/auth/:path*" },
+    { "source": "/admin/:path*", "destination": "/backend/app/admin/:path*" },
     {"source": "/home", "destination": "/home.html"},
     {"source": "/skills", "destination": "/skills.html"},
     {"source": "/about", "destination": "/about.html"},
